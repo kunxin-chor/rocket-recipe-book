@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { getDb } = require('../db');
 const { ObjectId } = require("mongodb");
+const { verifyToken } = require('../middlewares');
 
-router.post('/', async (req, res) => {
+router.post('/', verifyToken, async (req, res) => {
     try {
         const { name, cooking_duration, difficulty, cuisine, tags, ingredients } = req.body;
 
@@ -74,7 +75,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', verifyToken, async (req, res) => {
     try {
         // test if valid ObjectId
         if (!ObjectId.isValid(req.params.id)) {
@@ -104,6 +105,24 @@ router.put('/:id', async (req, res) => {
         res.json({ message: 'Recipe updated successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Error updating recipe', error: error.message });
+    }
+});
+
+router.delete('/:id', verifyToken, async (req, res) => {
+    try {
+        // test if valid ObjectId
+        if (!ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({ message: 'Invalid ID' });
+        }
+        const db = getDb();
+        const id = new ObjectId(req.params.id);
+        const result = await db.collection('recipes').deleteOne({ _id: id });
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ message: 'No recipe found with this ID' });
+        }
+        res.json({ message: 'Recipe deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting recipe', error: error.message });
     }
 });
 

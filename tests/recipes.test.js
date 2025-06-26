@@ -70,9 +70,11 @@ beforeAll(async () => {
 
   // recipes rouer must be included after db has been intiialized
   const recipesRouter = require('../routes/recipes');
+  const authRouter = require('../routes/auth');
   app = express();
   app.use(express.json());
   app.use('/recipes', recipesRouter);
+  app.use('/auth', authRouter)
 });
 
 afterAll(async () => {
@@ -93,8 +95,21 @@ describe('GET /recipes', () => {
   });
 });
 
+const jwt = require('jsonwebtoken');
+
 describe('PUT /recipes/:id', () => {
   it('should update an existing recipe', async () => {
+    // Insert mock user
+    const bcrypt = require('bcrypt');
+    const mockUser = {
+      _id: new ObjectId(),
+      email: 'testuser@example.com',
+      password: bcrypt.hashSync('password', 10)
+    };
+    await db.collection('users').insertOne(mockUser);
+    // Create JWT directly
+    const token = jwt.sign({ _id: mockUser._id, email: mockUser.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
     // Insert a new recipe to update
     const insertRes = await db.collection('recipes').insertOne({
       name: 'PutTest Recipe',
@@ -113,7 +128,10 @@ describe('PUT /recipes/:id', () => {
       tags: [tagId2.toHexString()],
       cuisine: cuisineId2.toHexString()
     };
-    const res = await request(app).put(`/recipes/${recipeId.toHexString()}`).send(updatedData);
+    const res = await request(app)
+      .put(`/recipes/${recipeId.toHexString()}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send(updatedData);
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty('message', 'Recipe updated successfully');
 
@@ -130,6 +148,17 @@ describe('PUT /recipes/:id', () => {
 
 describe('POST /recipes', () => {
   it('should add a new recipe and return it', async () => {
+    // Insert mock user
+    const bcrypt = require('bcrypt');
+    const mockUser = {
+      _id: new ObjectId(),
+      email: 'testuser@example.com',
+      password: bcrypt.hashSync('password', 10)
+    };
+    await db.collection('users').insertOne(mockUser);
+    // Create JWT directly
+    const token = jwt.sign({ _id: mockUser._id, email: mockUser.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
     const newRecipe = {
       name: 'Test Recipe 3',
       ingredients: ['e', 'f'],
@@ -139,7 +168,10 @@ describe('POST /recipes', () => {
       cuisine: cuisineId1.toHexString()
     };
 
-    const res = await request(app).post('/recipes').send(newRecipe);
+    const res = await request(app)
+      .post('/recipes')
+      .set('Authorization', `Bearer ${token}`)
+      .send(newRecipe);
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty('insertedId');
 
@@ -174,5 +206,28 @@ describe('GET /recipes/:id', () => {
   it('should return 400 for an invalid id', async () => {
     const res = await request(app).get('/recipes/notavalidobjectid');
     expect(res.statusCode).toBe(400);
+  });
+});
+
+describe('DELETE /recipes/:id', () => {
+  it('should delete a recipe', async () => {
+    // Insert mock user
+    const bcrypt = require('bcrypt');
+    const mockUser = {
+      _id: new ObjectId(),
+      email: 'testuser@example.com',
+      password: bcrypt.hashSync('password', 10)
+    };
+    await db.collection('users').insertOne(mockUser);
+    // Create JWT directly
+    const token = jwt.sign({ _id: mockUser._id, email: mockUser.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    // Find the inserted recipe's _id
+    const recipe = await db.collection('recipes').findOne({ name: 'Test Recipe 1' });
+    const res = await request(app).delete(`/recipes/${recipe._id.toHexString()}`).set('Authorization', `Bearer ${token}`);
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toHaveProperty('message', 'Recipe deleted successfully');
+    // Confirm deletion in DB
+    const deleted = await db.collection('recipes').findOne({ _id: recipe._id });
+    expect(deleted).toBeFalsy();
   });
 });
