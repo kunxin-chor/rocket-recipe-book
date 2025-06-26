@@ -1,0 +1,23 @@
+[
+  {
+    "_id": { "$oid": "100000000000000000000001" },
+    "recipe_id": { "$oid": "000000000000000000000101" },
+    "user_id": { "$oid": "000000000000000000010001" },
+    "rating": 4,
+    "comment": "This spaghetti bolognese recipe was delicious! I will definitely make it again."
+  },
+  {
+    "_id": { "$oid": "100000000000000000000002" },
+    "recipe_id": { "$oid": "000000000000000000000102" },
+    "user_id": { "$oid": "000000000000000000010002" },
+    "rating": 5,
+    "comment": "The chicken tikka masala was absolutely amazing. Highly recommended!"
+  },
+  {
+    "_id": { "$oid": "100000000000000000000003" },
+    "recipe_id": { "$oid": "000000000000000000000103" },
+    "user_id": { "$oid": "000000000000000000010003" },
+    "rating": 3,
+    "comment": "The sushi rolls were good, but I think they could use more filling."
+  }
+]

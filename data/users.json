@@ -1,0 +1,58 @@
+[
+  {
+    "_id": { "$oid": "000000000000000000010001" },
+    "username": "johndoe",
+    "email": "john.doe@example.com",
+    "name": "John Doe",
+    "createdAt": { "$date": "2025-01-15T08:30:00Z" },
+    "favoriteRecipes": [
+      { "$oid": "000000000000000000000101" },
+      { "$oid": "000000000000000000000102" }
+    ]
+  },
+  {
+    "_id": { "$oid": "000000000000000000010002" },
+    "username": "chefmaria",
+    "email": "maria.garcia@example.com",
+    "name": "Maria Garcia",
+    "createdAt": { "$date": "2025-02-20T14:15:00Z" },
+    "favoriteRecipes": [
+      { "$oid": "000000000000000000000103" },
+      { "$oid": "000000000000000000000102" }
+    ]
+  },
+  {
+    "_id": { "$oid": "000000000000000000010003" },
+    "username": "foodielover",
+    "email": "alex.wong@example.com",
+    "name": "Alex Wong",
+    "createdAt": { "$date": "2025-03-10T09:45:00Z" },
+    "favoriteRecipes": [
+      { "$oid": "000000000000000000000101" },
+      { "$oid": "000000000000000000000103" }
+    ]
+  },
+  {
+    "_id": { "$oid": "000000000000000000010004" },
+    "username": "bakingqueen",
+    "email": "sarah.johnson@example.com",
+    "name": "Sarah Johnson",
+    "createdAt": { "$date": "2025-04-05T16:20:00Z" },
+    "favoriteRecipes": [
+      { "$oid": "000000000000000000000102" },
+      { "$oid": "000000000000000000000103" }
+    ]
+  },
+  {
+    "_id": { "$oid": "000000000000000000010005" },
+    "username": "spicymaster",
+    "email": "raj.patel@example.com",
+    "name": "Raj Patel",
+    "createdAt": { "$date": "2025-05-12T11:10:00Z" },
+    "favoriteRecipes": [
+      { "$oid": "000000000000000000000101" },
+      { "$oid": "000000000000000000000102" },
+      { "$oid": "000000000000000000000103" }
+    ]
+  }
+]
