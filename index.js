@@ -18,6 +18,7 @@ async function main() {
 
 
         app.use('/recipes', require('./routes/recipes'));
+        app.use('/auth', require('./routes/auth'));
       
         app.listen(port, () => {
             console.log(`Server is running on port ${port}`);
