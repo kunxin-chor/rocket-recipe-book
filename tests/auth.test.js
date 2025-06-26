@@ -50,3 +50,16 @@ describe('POST /auth/login', () => {
         expect(res.body).toHaveProperty('accessToken');
     });
 });
+
+describe('POST /auth/register', () => {
+    it('should register a new user and return an access token', async () => {
+        const res = await request(app).post('/auth/register').send({
+            email: 'test2@example.com',
+            password: 'password'
+        });
+        console.log(res.body)
+        expect(res.statusCode).toBe(200);
+        expect(res.body).toHaveProperty('accessToken');
+    });
+});
+

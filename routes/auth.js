@@ -34,4 +34,24 @@ router.post('/login', async (req, res) => {
     }
 });
 
+router.post('/register', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return res.status(400).json({ message: 'Email and password are required' });
+        }
+    const user = await getDb().collection('users').findOne({ email: email });
+    if (user) {
+        return res.status(409).json({ message: 'User already exists' });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = { email: email, password: hashedPassword };
+    await getDb().collection('users').insertOne(newUser);
+    const accessToken = generateAccessToken(newUser._id, newUser.email);
+    res.json({ accessToken: accessToken });
+    } catch (error) {
+        res.status(500).json({ message: 'Error registering user', error: error.message });
+    }
+});
+
 module.exports = router;

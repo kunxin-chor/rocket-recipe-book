@@ -181,6 +181,7 @@ describe('POST /recipes', () => {
     expect(inserted).toHaveProperty('name', 'Test Recipe 3');
     expect(inserted).toHaveProperty('ingredients');
     expect(Array.isArray(inserted.ingredients)).toBe(true);
+    expect(inserted).toHaveProperty('user_id', mockUser._id.toHexString());
   });
 });
 

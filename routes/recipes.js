@@ -14,7 +14,7 @@ router.post('/', verifyToken, async (req, res) => {
         }
 
         const db = getDb();
-        const newRecipe = { name, cooking_duration, difficulty, cuisine, tags, ingredients };
+        const newRecipe = { name, cooking_duration, difficulty, cuisine, tags, ingredients, user_id: req.user._id };
         const result = await db.collection('recipes').insertOne(newRecipe);
         res.status(201).json(result);
     } catch (error) {
