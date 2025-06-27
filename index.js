@@ -14,7 +14,7 @@ app.use(express.json())
 
 async function main() {
     try {
-        const db = await connectToMongoDB();
+        await connectToMongoDB();
 
 
         app.use('/recipes', require('./routes/recipes'));

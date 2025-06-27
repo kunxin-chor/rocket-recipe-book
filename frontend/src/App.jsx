@@ -1,0 +1,29 @@
+import React from 'react';
+import { Router, Route, Switch } from 'wouter';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import LandingPage from './pages/LandingPage';
+import RecipePage from './pages/RecipePage';
+
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+
+import "./App.css"
+
+function App() {
+  return (
+    <div className="App">
+      <Navbar />      
+        <Router>
+          <Switch>
+            <Route path="/" component={LandingPage} />
+            <Route path="/recipe/:id" component={RecipePage} />
+            {/* We'll add more routes as we build them */}
+          </Switch>
+        </Router>
+    <Footer />
+    </div>
+  );
+}
+
+export default App;

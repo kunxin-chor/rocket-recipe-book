@@ -6,7 +6,7 @@ const { verifyToken } = require('../middlewares');
 
 router.post('/', verifyToken, async (req, res) => {
     try {
-        const { name, cooking_duration, difficulty, cuisine, tags, ingredients } = req.body;
+        const { name, cooking_duration, difficulty, cuisine, tags, ingredients, image_url } = req.body;
 
         // Validation
         if (!name || !cooking_duration || !difficulty || !cuisine || !tags || !ingredients) {
@@ -14,7 +14,7 @@ router.post('/', verifyToken, async (req, res) => {
         }
 
         const db = getDb();
-        const newRecipe = { name, cooking_duration, difficulty, cuisine, tags, ingredients, user_id: req.user._id };
+        const newRecipe = { name, cooking_duration, difficulty, cuisine, tags, ingredients, user_id: req.user._id, image_url };
         const result = await db.collection('recipes').insertOne(newRecipe);
         res.status(201).json(result);
     } catch (error) {
@@ -83,7 +83,7 @@ router.put('/:id', verifyToken, async (req, res) => {
         }
         const db = getDb();
         const id = new ObjectId(req.params.id);
-        const { name, cooking_duration, difficulty, cuisine, tags, ingredients } = req.body;
+        const { name, cooking_duration, difficulty, cuisine, tags, ingredients, image_url } = req.body;
 
         // Validation
         if (!name || !Array.isArray(ingredients) || ingredients.length === 0) {
@@ -92,7 +92,7 @@ router.put('/:id', verifyToken, async (req, res) => {
 
         // Additional validation can be added as necessary
 
-        const updateData = { name, cooking_duration, difficulty, cuisine, tags, ingredients };
+        const updateData = { name, cooking_duration, difficulty, cuisine, tags, ingredients, image_url };
         const result = await db.collection('recipes').updateOne(
             { _id: id },
             { $set: updateData }

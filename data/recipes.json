@@ -20,7 +20,8 @@
         "Garlic",
         "Parmesan cheese"
       ],
-      "user_id": { "$oid": "000000000000000000010001" }
+      "user_id": { "$oid": "000000000000000000010001" },
+      "image_url":"https://img.taste.com.au/sE-X5HqY/taste/2024/03/5-ingredient-turbo-charged-spaghetti-recipe-196959-1.jpg"
     },
     {
       "_id": { "$oid": "000000000000000000000102" },
@@ -44,7 +45,8 @@
         "Ginger",
         "Spices"
       ],
-      "user_id": { "$oid": "000000000000000000010002" }
+      "user_id": { "$oid": "000000000000000000010002" },
+      "image_url":"https://www.indianhealthyrecipes.com/wp-content/uploads/2022/06/chicken-tikka-masala-500x500.jpg"
     },
     {
       "_id": { "$oid": "000000000000000000000103" },
@@ -66,6 +68,7 @@
         "Carrot",
         "Avocado"
       ],
-      "user_id": { "$oid": "000000000000000000010003" }
+      "user_id": { "$oid": "000000000000000000010003" },
+      "image_url":"https://sudachirecipes.com/wp-content/uploads/2024/01/ehomaki-thumb-500x500.jpg"
     }
   ]
