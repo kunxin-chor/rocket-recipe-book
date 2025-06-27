@@ -28,7 +28,11 @@ router.post('/login', async (req, res) => {
         return res.status(401).json({ message: 'Invalid password' });
     }
     const accessToken = generateAccessToken(user._id, user.email);
-    res.json({ accessToken: accessToken });
+
+    // remove password from user object
+    delete user.password;
+
+    res.json({ accessToken: accessToken, user: user });
     } catch (error) {
         res.status(500).json({ message: 'Error logging in', error: error.message });
     }

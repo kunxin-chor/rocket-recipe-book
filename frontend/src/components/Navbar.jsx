@@ -17,6 +17,9 @@ function Navbar() {
             <li className="nav-item">
               <Link href="/recipes" className="nav-link">Recipes</Link>
             </li>
+            <li>
+              <Link href="/create-recipe" className="nav-link">Create Recipe</Link>
+            </li>
             <li className="nav-item">
               <Link href="/login" className="nav-link">Login</Link>
             </li>

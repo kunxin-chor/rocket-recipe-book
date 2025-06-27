@@ -12,6 +12,9 @@ app.use(cors());
 
 app.use(express.json())
 
+const tagsRouter = require('./routes/tags');
+const cuisineRouter = require('./routes/cuisine');
+
 async function main() {
     try {
         await connectToMongoDB();
@@ -19,6 +22,8 @@ async function main() {
 
         app.use('/recipes', require('./routes/recipes'));
         app.use('/auth', require('./routes/auth'));
+        app.use('/tags', tagsRouter);
+        app.use('/cuisines', cuisineRouter);
       
         app.listen(port, () => {
             console.log(`Server is running on port ${port}`);

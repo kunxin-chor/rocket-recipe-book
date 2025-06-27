@@ -2,6 +2,7 @@ require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const { MongoClient, ObjectId } = require('mongodb');
+const bcrypt = require('bcrypt');
 
 const DATA_DIR = path.join(__dirname, 'data');
 const FILES = [
@@ -33,6 +34,10 @@ function convertExtendedJSON(obj) {
     const out = {};
     for (const key in obj) {
       out[key] = convertExtendedJSON(obj[key]);
+      // hash password
+      if (key === 'password') {
+        out[key] = bcrypt.hashSync(obj[key], 10);
+      }
     }
     return out;
   }

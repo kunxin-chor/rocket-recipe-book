@@ -108,6 +108,100 @@ A Node.js/Express API for managing recipes, users, and reviews, with JWT authent
   ```
 - **Description:** Delete a recipe by ID (requires authentication).
 
+## Tag & Cuisine API Endpoints
+
+### Tags
+
+#### GET /api/tags
+- **Response:**
+  ```json
+  [ { "_id": "...", "name": "Pasta" }, ... ]
+  ```
+- **Description:** Get all tags.
+
+#### GET /api/tags/:id
+- **Response:**
+  ```json
+  { "_id": "...", "name": "Pasta" }
+  ```
+- **Description:** Get a tag by ID.
+
+#### POST /api/tags
+- **Body:**
+  ```json
+  { "name": "Vegetarian" }
+  ```
+- **Response:**
+  ```json
+  { "_id": "...", "name": "Vegetarian" }
+  ```
+- **Description:** Create a new tag.
+
+#### PUT /api/tags/:id
+- **Body:**
+  ```json
+  { "name": "Updated Tag" }
+  ```
+- **Response:**
+  ```json
+  { "_id": "...", "name": "Updated Tag" }
+  ```
+- **Description:** Update a tag by ID.
+
+#### DELETE /api/tags/:id
+- **Response:**
+  ```json
+  { "success": true }
+  ```
+- **Description:** Delete a tag by ID.
+
+---
+
+### Cuisine
+
+#### GET /api/cuisine
+- **Response:**
+  ```json
+  [ { "_id": "...", "name": "Italian" }, ... ]
+  ```
+- **Description:** Get all cuisines.
+
+#### GET /api/cuisine/:id
+- **Response:**
+  ```json
+  { "_id": "...", "name": "Italian" }
+  ```
+- **Description:** Get a cuisine by ID.
+
+#### POST /api/cuisine
+- **Body:**
+  ```json
+  { "name": "Japanese" }
+  ```
+- **Response:**
+  ```json
+  { "_id": "...", "name": "Japanese" }
+  ```
+- **Description:** Create a new cuisine.
+
+#### PUT /api/cuisine/:id
+- **Body:**
+  ```json
+  { "name": "Updated Cuisine" }
+  ```
+- **Response:**
+  ```json
+  { "_id": "...", "name": "Updated Cuisine" }
+  ```
+- **Description:** Update a cuisine by ID.
+
+#### DELETE /api/cuisine/:id
+- **Response:**
+  ```json
+  { "success": true }
+  ```
+- **Description:** Delete a cuisine by ID.
+
 ## Other Collections
 
 - **tags**: Used for recipe tag lookups.
