@@ -17,7 +17,7 @@ function App() {
         <Router>
           <Switch>
             <Route path="/" component={LandingPage} />
-            <Route path="/recipe/:id" component={RecipePage} />
+            <Route path="/recipes" component={RecipePage} />
             {/* We'll add more routes as we build them */}
           </Switch>
         </Router>
